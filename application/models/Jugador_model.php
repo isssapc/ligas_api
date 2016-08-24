@@ -8,22 +8,24 @@ class Jugador_model extends CI_Model {
 
     public function get_jugadores() {
 
-        $sql = "SELECT j.*
-                FROM jugador j;";
+        $sql = "SELECT j.*, e.nombre AS equipo, e.id_liga, l.nombre AS liga, t.temporada 
+                FROM jugador j
+                JOIN equipo e ON e.id_equipo=j.id_equipo
+                JOIN liga l ON l.id_liga=e.id_liga
+                JOIN temporada t ON t.id_temporada=j.id_temporada";
 
         $query = $this->db->query($sql);
         return $query->result_array();
     }
     
-       public function get_jugadores_equipo_liga_temporada($id_equipo,$id_liga,$id_temporada) {
+       public function get_jugadores_equipo_liga($id_equipo,$id_liga) {
 
-        $sql = "SELECT je.*, j.nombre AS jugador, t.nombre AS temporada, e.nombre AS equipo, l.nombre AS liga
-                FROM jugador_equipo je
-                JOIN jugador j ON j.id_jugador=je.id_jugador
-                JOIN temporada t ON t.id_temporada=je.id_temporada
+        $sql = "SELECT je.*, j.*, e.nombre AS equipo, l.nombre AS liga
+                FROM jugador_equipo_liga je
+                JOIN jugador j ON j.id_jugador=je.id_jugador               
                 JOIN equipo e ON e.id_equipo=je.id_equipo
                 JOIN liga l ON l.id_liga=je.id_liga
-                WHERE je.id_equipo=$id_equipo AND je.id_liga=$id_liga AND je.id_temporada=$id_temporada;";
+                WHERE je.id_equipo=$id_equipo AND je.id_liga=$id_liga";
 
         $query = $this->db->query($sql);
         return $query->result_array();

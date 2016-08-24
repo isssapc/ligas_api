@@ -19,12 +19,11 @@ class Jugadores extends MY_Controller {
         $this->response($datos);
     }
 
-    public function equipo_liga_temporada_get() {
+    public function equipo_liga_get() {
         $id_equipo = $this->get('id_equipo');
-        $id_liga = $this->get('id_liga');
-        $id_temporada = $this->get('id_temporada');
+        $id_liga = $this->get('id_liga');       
 
-        $datos = $this->jugador_model->get_jugadores_equipo_liga_temporada($id_equipo,$id_liga,$id_temporada);
+        $datos = $this->jugador_model->get_jugadores_equipo_liga($id_equipo,$id_liga);
         $this->response($datos);
     }
 

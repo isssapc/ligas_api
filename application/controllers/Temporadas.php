@@ -28,12 +28,6 @@ class Temporadas extends MY_Controller {
         $this->response($datos);
     }
     
-    
-    
-    
-    
-    
-
     public function nombres_get() {
         $id_dominio = $this->get('id_dominio');
         $datos = $this->temporada_model->get_nombres($id_dominio);

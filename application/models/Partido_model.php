@@ -19,14 +19,27 @@ class Partido_model extends CI_Model {
 
     public function get_partidos_jornada($id_jornada) {
 
-        $sql = "SELECT p.*, el.nombre AS local, ev.nombre AS visitante, t.nombre AS temporada, l.nombre AS liga
+        $sql = "SELECT p.*, el.nombre AS local, ev.nombre AS visitante, l.nombre AS liga, j.nombre AS jornada
                 FROM partido p
-                JOIN jornada j ON j.id_jornada=p.id_jornada               
-                JOIN temporada t ON t.id_temporada= j.id_temporada
+                JOIN jornada j ON j.id_jornada=p.id_jornada              
                 JOIN liga l ON l.id_liga=j.id_liga
                 JOIN equipo el ON el.id_equipo= p.id_local
                 JOIN equipo ev ON ev.id_equipo= p.id_visitante
                 WHERE p.id_jornada=$id_jornada;";
+
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function get_partidos_equipo_liga($id_equipo, $id_liga) {
+
+        $sql = "SELECT p.*, el.nombre AS local, ev.nombre AS visitante, l.nombre AS liga, j.nombre AS jornada
+                FROM partido p
+                JOIN jornada j on j.id_jornada= p.id_jornada
+                JOIN liga l ON l.id_liga=j.id_liga
+                JOIN equipo el ON el.id_equipo= p.id_local
+                JOIN equipo ev ON ev.id_equipo= p.id_visitante
+                WHERE (p.id_local=$id_equipo OR p.id_visitante=$id_equipo) AND j.id_liga= $id_liga ";
 
         $query = $this->db->query($sql);
         return $query->result_array();

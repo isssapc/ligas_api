@@ -19,9 +19,17 @@ class Equipos extends MY_Controller {
         $this->response($datos);
     }
 
-    public function liga_temporada_get() {
+    public function liga_get() {
         $id_liga = $this->get('id_liga');
-        $id_temporada = $this->get('id_temporada');
+
+        $datos = $this->equipo_model->get_equipos_liga($id_liga);
+        $this->response($datos);
+    }
+
+    public function liga_temporada_post() {
+        $id_liga = $this->post('id_liga');
+        $id_temporada = $this->post('id_temporada');
+
         $datos = $this->equipo_model->get_equipos_liga_temporada($id_liga, $id_temporada);
         $this->response($datos);
     }

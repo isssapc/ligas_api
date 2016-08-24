@@ -25,6 +25,13 @@ class Partidos extends MY_Controller {
         $this->response($datos);
     }
 
+    public function equipo_liga_get() {
+        $id_equipo = $this->get('id_equipo');
+        $id_liga = $this->get('id_liga');
+        $datos = $this->partido_model->get_partidos_equipo_liga($id_equipo, $id_liga);
+        $this->response($datos);
+    }
+
     public function nombres_get() {
         $id_dominio = $this->get('id_dominio');
         $datos = $this->partido_model->get_nombres($id_dominio);

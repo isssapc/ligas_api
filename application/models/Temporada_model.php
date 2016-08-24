@@ -17,11 +17,11 @@ class Temporada_model extends CI_Model {
 
     public function get_temporadas_liga($id_liga) {
 
-        $sql = "SELECT tl.*, t.nombre AS temporada, l.nombre AS liga
-                FROM temporada_liga tl
-                JOIN temporada t ON t.id_temporada=tl.id_temporada
-                JOIN liga l ON l.id_liga=tl.id_liga
-                WHERE tl.id_liga=$id_liga;";
+        $sql = "SELECT lt.*, t.temporada, l.nombre AS liga
+                FROM liga_temporada lt
+                JOIN temporada t ON t.id_temporada=lt.id_temporada
+                JOIN liga l ON l.id_liga=lt.id_liga
+                WHERE lt.id_liga=$id_liga;";
 
         $query = $this->db->query($sql);
         return $query->result_array();

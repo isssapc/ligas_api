@@ -8,20 +8,20 @@ class Jornada_model extends CI_Model {
 
     public function get_jornadas() {
 
-        $sql = "SELECT j.*
-                FROM jornada j;";
+        $sql = "SELECT j.*, l.nombre as liga, l.id_categoria as categoria, t.temporada
+                FROM jornada j
+                JOIN liga l ON l.id_liga= j.id_liga
+                JOIN temporada t ON t.id_temporada=j.id_temporada ";
 
         $query = $this->db->query($sql);
         return $query->result_array();
     }
 
-    public function get_jornadas_temporada_liga($id_liga,$id_temporada) {
+    public function get_jornadas_liga_temporada($id_liga, $id_temporada) {
 
-        $sql = "SELECT j.*, t.nombre AS temporada, l.nombre AS liga
-                FROM  jornada j                
-                JOIN temporada t ON t.id_temporada=j.id_temporada
-                JOIN liga l ON l.id_liga=j.id_liga 
-                WHERE j.id_temporada=$id_temporada AND j.id_liga=$id_liga;";
+        $sql = "SELECT j.*
+                FROM  jornada j            
+                WHERE j.id_liga=$id_liga AND j.id_temporada=$id_temporada";
 
         $query = $this->db->query($sql);
         return $query->result_array();

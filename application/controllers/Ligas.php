@@ -22,22 +22,11 @@ class Ligas extends MY_Controller {
     }
     
     
-    
-    
-    
-    
     public function temporada_get($id_temporada) {
 
         $datos = $this->liga_model->get_ligas_temporada($id_temporada);
         $this->response($datos);
     }
-    
-    
-    
-    
-    
-    
-    
 
     public function nombres_get() {
         $id_dominio = $this->get('id_dominio');

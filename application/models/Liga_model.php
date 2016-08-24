@@ -8,8 +8,11 @@ class Liga_model extends CI_Model {
 
     public function get_ligas() {
 
-        $sql = "SELECT l.*
-                FROM liga l;";
+        $sql = "SELECT l.*, r.rama, d.division, c.categoria
+                FROM liga l
+                JOIN categoria c ON c.id_categoria=l.id_categoria
+                JOIN division d ON d.id_division=l.id_division
+                JOIN rama r ON r.id_rama=l.id_rama";
 
         $query = $this->db->query($sql);
         return $query->result_array();

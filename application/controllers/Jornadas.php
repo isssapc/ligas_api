@@ -19,10 +19,11 @@ class Jornadas extends MY_Controller {
         $this->response($datos);
     }
 
-    public function liga_temporada_get() {
-        $id_liga = $this->get('id_liga');
-        $id_temporada = $this->get('id_temporada');
-        $datos = $this->jornada_model->get_jornadas_temporada_liga($id_liga, $id_temporada);
+    public function liga_temporada_post() {
+        $id_liga = $this->post('id_liga');
+        $id_temporada = $this->post('id_temporada');
+
+        $datos = $this->jornada_model->get_jornadas_liga_temporada($id_liga, $id_temporada);
         $this->response($datos);
     }
 

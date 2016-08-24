@@ -8,8 +8,20 @@ class Equipo_model extends CI_Model {
 
     public function get_equipos() {
 
-        $sql = "SELECT e.*
-                FROM equipo e;";
+        $sql = "SELECT e.*, l.nombre AS liga
+                FROM equipo e
+                JOIN liga l ON l.id_liga=e.id_liga";
+
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    public function get_equipos_liga($id_liga) {
+
+        $sql = "SELECT el.*, e.nombre AS equipo
+                FROM equipo_liga el
+                JOIN equipo e ON e.id_equipo= el.id_equipo
+                WHERE el.id_liga=$id_liga";
 
         $query = $this->db->query($sql);
         return $query->result_array();
@@ -17,10 +29,10 @@ class Equipo_model extends CI_Model {
 
     public function get_equipos_liga_temporada($id_liga, $id_temporada) {
 
-        $sql = "SELECT te.*, e.nombre AS equipo
-                FROM temporada_equipo te
-                JOIN equipo e ON e.id_equipo= te.id_equipo
-                WHERE te.id_liga=$id_liga AND te.id_temporada=$id_temporada;";
+        $sql = "SELECT e.*
+                FROM equipo_temporada et
+                JOIN equipo e ON e.id_equipo= et.id_equipo
+                WHERE e.id_liga=$id_liga AND et.id_temporada=$id_temporada";
 
         $query = $this->db->query($sql);
         return $query->result_array();
